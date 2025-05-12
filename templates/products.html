@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Товары{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ product.image_url or 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.artist }}</p>
+                <p class="card-text"><small class="text-muted">{{ product.genre }}</small></p>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="fw-bold">{{ product.price }} руб.</p>
+                {% if product.stock > 0 %}
+                    <p class="text-success">В наличии: {{ product.stock }}</p>
+                    <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-primary">В корзину</a>
+                {% else %}
+                    <p class="text-danger">Нет в наличии</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center text-white rounded">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold">Добро пожаловать в Music Store</h1>
+        <p class="lead">Лучшие музыкальные альбомы по выгодным ценам</p>
+        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">Перейти к покупкам</a>
+    </div>
+</section>
+
+<section class="featured-products">
+    <h2 class="mb-4">Популярные товары</h2>
+    <div class="row">
+        {% for product in featured_products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ product.image_url or 'https://via.placeholder.com/300' }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.artist }}</p>
+                        <p class="text-muted">{{ product.price }} руб.</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
